@@ -215,7 +215,7 @@ solana config set --keypair ~/validator-keypair.json
 ```
 
 
-Transfer 0.1 SOL into the ~/validator-keypair.json (to create vote account and at the same time set the withdrawl authority)
+Transfer 0.1 SOL into the ~/validator-keypair.json (to create vote account and at the same time set the withdrawal authority)
 ```
 solana create-vote-account ~/vote-account-keypair.json ~/validator-keypair.json ~/authority-keypair.json
 
@@ -384,7 +384,7 @@ solana-keygen pubkey ~/authority-keypair.json
 ```
 Remember to use the `solana --help` feature to learn syntax. You can look up specifc commands for example:
 ```
-solana create-stake-acccount --help
+solana create-stake-account --help
 ```
 #
 Watchtower Monitoring (using the Shadowy Super Coder DAO's validator ID as an example)
