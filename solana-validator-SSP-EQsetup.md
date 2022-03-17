@@ -15,7 +15,7 @@ apt upgrade
 
 apt dist-upgrade
 ```
-Create user sol
+Create user: sol
 
 ```
 adduser sol
