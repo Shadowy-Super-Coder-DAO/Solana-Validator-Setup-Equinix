@@ -10,7 +10,9 @@ So you have your shiny new beast of a server. Let's make it a Solana Validatoooo
 First things first - OS security updates
 ```
 apt update
+
 apt upgrade
+
 apt dist-upgrade
 ```
 create user sol
