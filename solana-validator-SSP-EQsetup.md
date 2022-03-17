@@ -7,7 +7,7 @@ IMPORTANT: This guide is specifically for Equinix Machines from the Solana Reser
 You must be running Ubuntu 20.04
 
 So you have your shiny new beast of a server. Let's make it a Solana Validatoooooooor.
-First things first - OS security updates
+First things first - perform OS security updates
 ```
 apt update
 
