@@ -163,10 +163,10 @@ sudo ufw allow 53
 sudo ufw allow 8000:8010/udp
 ```
 
-Install the Solana CLI! Don't forget to check for current version (1.8.14 as of 2/4/2022)
+Install the Solana CLI! Don't forget to check for current version (1.9.16 as of 04/20/2022)
 
 ```
-sh -c "$(curl -sSfL https://release.solana.com/v1.8.14/install)"
+sh -c "$(curl -sSfL https://release.solana.com/v1.9.16/install)"
 ```
 I will ask you to map the PATH just copy and paste the below:
 
