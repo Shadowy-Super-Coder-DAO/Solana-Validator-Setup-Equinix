@@ -251,7 +251,7 @@ exec solana-validator \
 --trusted-validator 7cVfgArCheMR6Cs4t6vz5rfnqd56vZq4ndaBrY5xkxXy \
 --expected-genesis-hash 5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d \
 --ledger /mt/ledger/validator-ledger \
---dynamic-port-range 8000-8010 \
+--dynamic-port-range 8000-8015 \
 --private-rpc \
 --rpc-bind-address 127.0.0.1 \
 --no-untrusted-rpc \
