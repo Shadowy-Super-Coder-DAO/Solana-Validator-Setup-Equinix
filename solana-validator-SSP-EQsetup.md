@@ -163,10 +163,10 @@ sudo ufw allow 53
 sudo ufw allow 8000:8010/udp
 ```
 
-Install the Solana CLI! Don't forget to check for current version (1.9.16 as of 04/20/2022)
+Install the Solana CLI! Don't forget to check for current version (1.9.20 as of 05/05/2022)
 
 ```
-sh -c "$(curl -sSfL https://release.solana.com/v1.9.16/install)"
+sh -c "$(curl -sSfL https://release.solana.com/v1.9.20/install)"
 ```
 I will ask you to map the PATH just copy and paste the below:
 
@@ -259,7 +259,7 @@ exec solana-validator \
 --wal-recovery-mode skip_any_corrupted_record \
 --log ~/solana-validator.log \
 --accounts /mnt/ramdrive/solana-accounts \
---limit-ledger-size 50000000 \
+--limit-ledger-size \
 ```
 save / exit (ctrl+s, ctrl+x)
 
@@ -407,4 +407,8 @@ solana validator-info publish "SomethingCreative" -n SomethingCreative -w "https
 
 Install a monitoring stack of your choice. There are many great public guides. For example, look up Ubuntu `TIG` motoring stack how to guide. TIG stand for Telegraf, InfluxDB, Grafana.
 
-Join the Solana Discord channel for validator support! 
+You can also reference this guide on installing your own monitoring: https://github.com/Shadowy-Super-Coder-DAO/Shadow-RPC-Operator/blob/main/shadow_monitoring/README.md
+
+
+**Join the Solana Discord channel for validator support!**
+https://discord.com/channels/428295358100013066/560174212967432193 
