@@ -163,10 +163,10 @@ sudo ufw allow 53
 sudo ufw allow 8000:8010/udp
 ```
 
-Install the Solana CLI! Don't forget to check for current version (1.9.20 as of 05/05/2022)
+Install the Solana CLI! Don't forget to check for current version (1.10.26 as of 06/23/2022)
 
 ```
-sh -c "$(curl -sSfL https://release.solana.com/v1.9.20/install)"
+sh -c "$(curl -sSfL https://release.solana.com/v1.10.26/install)"
 ```
 I will ask you to map the PATH just copy and paste the below:
 
@@ -251,7 +251,7 @@ exec solana-validator \
 --trusted-validator 7cVfgArCheMR6Cs4t6vz5rfnqd56vZq4ndaBrY5xkxXy \
 --expected-genesis-hash 5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d \
 --ledger /mt/ledger/validator-ledger \
---dynamic-port-range 8000-8015 \
+--dynamic-port-range 8000-8020 \
 --private-rpc \
 --rpc-bind-address 127.0.0.1 \
 --no-untrusted-rpc \
