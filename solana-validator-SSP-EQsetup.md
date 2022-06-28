@@ -151,16 +151,20 @@ Set up the firewall / ssh
 ```
 sudo snap install ufw
 
-sudo ufw enable
-
 sudo ufw allow ssh
+
+sudo ufw enable
 ```
 
 Open ports in UFW firewall for Solana Validator operation:
 ```
 sudo ufw allow 53 
 
-sudo ufw allow 8000:8010/udp
+sudo ufw allow 8000:10000/udp
+
+sudo ufw allow 8000:8020/tcp
+
+sudo ufw allow 8899:8900/tcp
 ```
 
 Install the Solana CLI! Don't forget to check for current version (1.10.26 as of 06/23/2022)
@@ -168,7 +172,7 @@ Install the Solana CLI! Don't forget to check for current version (1.10.26 as of
 ```
 sh -c "$(curl -sSfL https://release.solana.com/v1.10.26/install)"
 ```
-I will ask you to map the PATH just copy and paste the below:
+It will ask you to map the PATH just copy and paste the below:
 
 ```
 export PATH="/home/sol/.local/share/solana/install/active_release/bin:$PATH"
@@ -239,26 +243,28 @@ Edit this into start-validator.sh ( updated 02/07/2022):
 exec solana-validator \
 --identity ~/validator-keypair.json \
 --vote-account ~/vote-account-keypair.json \
---authorized-voter ~/vote-account-keypair.json \
 --entrypoint entrypoint.mainnet-beta.solana.com:8001 \
 --entrypoint entrypoint2.mainnet-beta.solana.com:8001 \
 --entrypoint entrypoint3.mainnet-beta.solana.com:8001 \
 --entrypoint entrypoint4.mainnet-beta.solana.com:8001 \
 --entrypoint entrypoint5.mainnet-beta.solana.com:8001 \
---trusted-validator DDnAqxJVFo2GVTujibHt5cjevHMSE9bo8HJaydHoshdp \
---trusted-validator Ninja1spj6n9t5hVYgF3PdnYz2PLnkt7rvaw3firmjs \
---trusted-validator wWf94sVnaXHzBYrePsRUyesq6ofndocfBH6EmzdgKMS \
---trusted-validator 7cVfgArCheMR6Cs4t6vz5rfnqd56vZq4ndaBrY5xkxXy \
---expected-genesis-hash 5eykt4UsFv8P8NJdTREpY1vzqKqZKvdpKuc147dw2N9d \
+--known-validator 7cVfgArCheMR6Cs4t6vz5rfnqd56vZq4ndaBrY5xkxXy \
+--known-validator DDnAqxJVFo2GVTujibHt5cjevHMSE9bo8HJaydHoshdp \
+--known-validator Ninja1spj6n9t5hVYgF3PdnYz2PLnkt7rvaw3firmjs \
+--known-validator wWf94sVnaXHzBYrePsRUyesq6ofndocfBH6EmzdgKMS \
+--known-validator 7Np41oeYqPefeNQEHSv1UDhYrehxin3NStELsSKCT4K2 \
+--known-validator GdnSyH3YtwcxFvQrVVJMm1JhTS4QVX7MFsX56uJLUfiZ \
+--known-validator DE1bawNcRJB9rVm3buyMVfr8mBEoyyu73NBovf2oXJsJ \
+--known-validator CakcnaRDHka2gXyfbEd2d3xsvkJkqsLw2akB3zsN1D2S \
 --ledger /mt/ledger/validator-ledger \
 --dynamic-port-range 8000-8020 \
 --private-rpc \
 --rpc-bind-address 127.0.0.1 \
+--rpc-port 8899 \
 --no-untrusted-rpc \
---expected-shred-version 13490 \
 --wal-recovery-mode skip_any_corrupted_record \
 --log ~/solana-validator.log \
---accounts /mnt/ramdrive/solana-accounts \
+--accounts /mt/solana-accounts \
 --limit-ledger-size \
 ```
 save / exit (ctrl+s, ctrl+x)
@@ -361,8 +367,21 @@ sudo systemctl status sol.service
 ```
 This starts the system process and the Validator should begin running. Debug if not by tailing the log and filter for error of warnings.
 ```
-sudo tail -f ~/log/solana-validator.log
+sudo tail -f ~/solana-validator.log
 ```
+
+You can also use the following commands to help troubleshoot your status.
+You want the catchup command to show that you are 0 slots behind/caught up.
+In the log, you should see voting activity.
+Lastly, the vote-account command will show you your recent votes when caught up
+```
+solana catchup --our-localhost
+
+sudo tail -f ~/solana-validator.log | grep "voting"
+
+solana vote-account ~/vote-account-keypair.json
+```
+
 ### **If you have not done so already, join the Solana Discord and get help in the "validator-support" channel.**
 
 #
@@ -373,9 +392,9 @@ In the below example the .1 is the amount of SOL being staked to the `vote-accou
 solana create-stake-account --from ~/validator-keypair.json ~/stake-account.json .1 --stake-authority ~/authority-keypair.json --withdraw-authority ~/authority-keypair.json --fee-payer ~/validator-keypair.json
 
 ```
-Next delegate the small amount of stake to the validator just made. **You will need to replace the addresses in the below examples with your own addresses** If the validator still has not caught up to the cluster then it will say "unable to delegate. vote account has no root slot" you will need to wait and try again later. You might have to wait up to 45 minutes for a Validator to catch up.
+Next delegate the small amount of stake to the validator just made. If the validator still has not caught up to the cluster then it will say "unable to delegate. vote account has no root slot" you will need to wait and try again later. You might have to wait up to 45 minutes for a Validator to catch up.
 ```
-solana delegate-stake --stake-authority ~/authority-keypair.json 8QhaDK7J5dpdpbKxHvA3pwZo6Zj7ghq4THNnmyz13ys wWf94sVnaXHzBYrePsRUyesq6ofndocfBH6EmzdgKMS --fee-payer ~/validator-keypair.json
+solana delegate-stake ~/stake-account.json ~/vote-account-keypair.json --fee-payer ~/validator-keypair.json
 
 ```
 You can look up your local filesystem wallet addresses using:
