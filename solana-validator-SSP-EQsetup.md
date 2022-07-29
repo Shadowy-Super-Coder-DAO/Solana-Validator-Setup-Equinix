@@ -167,10 +167,10 @@ sudo ufw allow 8000:8020/tcp
 sudo ufw allow 8899:8900/tcp
 ```
 
-Install the Solana CLI! Don't forget to check for current version (1.10.26 as of 06/23/2022)
+Install the Solana CLI! Don't forget to check for current version (1.10.31 as of 07/28/2022)
 
 ```
-sh -c "$(curl -sSfL https://release.solana.com/v1.10.26/install)"
+sh -c "$(curl -sSfL https://release.solana.com/v1.10.31/install)"
 ```
 It will ask you to map the PATH just copy and paste the below:
 
